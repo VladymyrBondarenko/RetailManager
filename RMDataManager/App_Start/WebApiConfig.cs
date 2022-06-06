@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Web.Http;
+﻿using System.Web.Http;
+using Autofac;
 using Microsoft.Owin.Security.OAuth;
-using Newtonsoft.Json.Serialization;
+using RMDataManager.Library.Internal.DataAccess;
+using RMDataManager.Library.Repositories;
+using static RMDataManager.Startup;
 
 namespace RMDataManager
 {
@@ -16,6 +15,11 @@ namespace RMDataManager
             // Configure Web API to use only bearer token authentication.
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+
+            var builder = new ContainerBuilder();
+            builder.RegisterType<SqlDataAccess>().As<ISqlDataAccess>();
+            builder.RegisterType<UserData>().As<IUserData>();
+            ServiceTuner = builder.Build();
 
             // Web API routes
             config.MapHttpAttributeRoutes();

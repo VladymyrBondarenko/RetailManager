@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Autofac;
 using Microsoft.Owin;
 using Owin;
 
@@ -10,6 +8,8 @@ namespace RMDataManager
 {
     public partial class Startup
     {
+        public static IContainer ServiceTuner { get; set; }
+
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
