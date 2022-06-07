@@ -15,13 +15,22 @@
                 <ImageBrush/>
             </Menu.Background>
             <MenuItem Header="_File">
-                
+                <MenuItem.Background>
+                    <ImageBrush/>
+                </MenuItem.Background>
+
             </MenuItem>
             <MenuItem Header="_Account">
+                <MenuItem.Background>
+                    <ImageBrush/>
+                </MenuItem.Background>
                 <MenuItem x:Name="LoginScreen" Header="_Login" />
             </MenuItem>
         </Menu>
         <Grid>
+            <Grid.Background>
+                <ImageBrush/>
+            </Grid.Background>
             <ContentControl x:Name="ActiveItem" Margin="5" >
                 <ContentControl.Background>
                     <ImageBrush/>
