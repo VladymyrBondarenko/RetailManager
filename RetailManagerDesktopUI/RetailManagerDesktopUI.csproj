@@ -81,10 +81,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Helpers\APIHelper.cs" />
-    <Compile Include="Helpers\IAPIHelper.cs" />
     <Compile Include="Helpers\PasswordBoxHelper.cs" />
-    <Compile Include="Models\AuthenticatedUser.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\LoginView.xaml.cs">
@@ -134,10 +131,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Models\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Views\SuggestionPageBackground.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RetailManagerDesktopUI.Library\RetailManagerDesktopUI.Library.csproj">
+      <Project>{A8263E52-0A8C-446F-A59D-4771C1CE0C74}</Project>
+      <Name>RetailManagerDesktopUI.Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
