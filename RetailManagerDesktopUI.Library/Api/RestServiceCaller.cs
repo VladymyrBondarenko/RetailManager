@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace RetailManagerDesktopUI.Library.Api
 {
-    public class APIHelper : IAPIHelper
+    public class RestServiceCaller : IRestServiceCaller
     {
         private HttpClient _apiClient;
         private readonly ILoggedInUserModel _loggedInUser;
 
-        public APIHelper(ILoggedInUserModel loggedInUser)
+        public RestServiceCaller(ILoggedInUserModel loggedInUser)
         {
             initilizeClient();
             _loggedInUser = loggedInUser;

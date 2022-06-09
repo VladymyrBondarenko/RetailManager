@@ -8,7 +8,7 @@ namespace RMDataManager
 {
     public partial class Startup
     {
-        public static IContainer ServiceTuner { get; set; }
+        internal static IContainer ServiceTuner { get; set; }
 
         public void Configuration(IAppBuilder app)
         {

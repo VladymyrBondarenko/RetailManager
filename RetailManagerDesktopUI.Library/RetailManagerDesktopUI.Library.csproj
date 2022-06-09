@@ -66,8 +66,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\APIHelper.cs" />
-    <Compile Include="Api\IAPIHelper.cs" />
+    <Compile Include="Api\RestServiceCaller.cs" />
+    <Compile Include="Api\IRestServiceCaller.cs" />
     <Compile Include="Models\AuthenticatedUser.cs" />
     <Compile Include="Models\ILoggedInUserModel.cs" />
     <Compile Include="Models\LoggedInUserModel.cs" />

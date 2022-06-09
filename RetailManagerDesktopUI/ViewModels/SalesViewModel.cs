@@ -67,7 +67,7 @@ namespace RetailManagerDesktopUI.ViewModels
             set 
             { 
                 _itemQuantity = value;
-                NotifyOfPropertyChange(() => Products);
+                NotifyOfPropertyChange(() => ItemQuantity);
             }
         }
 
