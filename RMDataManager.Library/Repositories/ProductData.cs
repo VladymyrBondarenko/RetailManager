@@ -1,25 +1,28 @@
 ﻿using RMDataManager.Library.Internal.DataAccess;
 using RMDataManager.Library.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace RMDataManager.Library.Repositories
 {
-    public class UserData : IUserData
+    public class ProductData : IProductData
     {
         private readonly ISqlDataAccess _db;
         private static readonly string connectionId = "RetailManagerDataConnection";
 
-        public UserData(ISqlDataAccess db)
+        public ProductData(ISqlDataAccess db)
         {
             _db = db;
         }
 
-        public async Task<List<UserModel>> GetUserById(string id)
+        public async Task<List<ProductModel>> GetProducts()
         {
-            return await _db.LoadData<UserModel, dynamic>(
-                "dbo.spUserLookup",
-                connectionId, new { id = id });
+            var res = await _db.LoadData<ProductModel, dynamic>(
+                "spProduct_GetAll", connectionId);
+            return res;
         }
     }
 }

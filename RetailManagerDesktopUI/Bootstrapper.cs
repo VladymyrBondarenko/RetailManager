@@ -1,6 +1,7 @@
 ﻿using Caliburn.Micro;
 using RetailManagerDesktopUI.Helpers;
 using RetailManagerDesktopUI.Library.Api;
+using RetailManagerDesktopUI.Library.Api.Endpoints;
 using RetailManagerDesktopUI.Library.Models;
 using RetailManagerDesktopUI.ViewModels;
 using System;
@@ -29,7 +30,8 @@ namespace RetailManagerDesktopUI
 
         protected override void Configure()
         {
-            _container.Instance(_container);
+            _container.Instance(_container)
+                .PerRequest<IProductEndpoint, ProductEndpoint>();
 
             _container
                 .Singleton<IWindowManager, WindowManager>()

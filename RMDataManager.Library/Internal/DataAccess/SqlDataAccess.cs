@@ -17,7 +17,7 @@ namespace RMDataManager.Library.Internal.DataAccess
             return ConfigurationManager.ConnectionStrings[name]?.ConnectionString;
         }
 
-        public async Task<List<T>> LoadData<T, U>(string storedProcedure, U parameters, string connectionStringName)
+        public async Task<List<T>> LoadData<T, U>(string storedProcedure, string connectionStringName, U parameters = default)
         {
             using (IDbConnection connection = new SqlConnection(GetConnectionString(connectionStringName)))
             {
@@ -28,7 +28,7 @@ namespace RMDataManager.Library.Internal.DataAccess
             }
         }
 
-        public async Task SaveData<T>(string storedProcedure, T parameters, string connectionStringName)
+        public async Task SaveData<T>(string storedProcedure, string connectionStringName, T parameters = default)
         {
             using (IDbConnection connection = new SqlConnection(GetConnectionString(connectionStringName)))
             {
