@@ -2,6 +2,7 @@
 using RetailManagerDesktopUI.Helpers;
 using RetailManagerDesktopUI.Library.Api;
 using RetailManagerDesktopUI.Library.Api.Endpoints;
+using RetailManagerDesktopUI.Library.Helpers;
 using RetailManagerDesktopUI.Library.Models;
 using RetailManagerDesktopUI.ViewModels;
 using System;
@@ -37,7 +38,8 @@ namespace RetailManagerDesktopUI
                 .Singleton<IWindowManager, WindowManager>()
                 .Singleton<IEventAggregator, EventAggregator>()
                 .Singleton<IRestServiceCaller, RestServiceCaller>()
-                .Singleton<ILoggedInUserModel, LoggedInUserModel>();
+                .Singleton<ILoggedInUserModel, LoggedInUserModel>()
+                .Singleton<IConfigHelper, ConfigHelper>();
 
             GetType().Assembly.GetTypes()
                 .Where(type => type.IsClass && type.Name.EndsWith("ViewModel")).ToList()
