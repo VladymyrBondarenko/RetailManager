@@ -20,6 +20,7 @@ namespace RMDataManager
             builder.RegisterType<SqlDataAccess>().As<ISqlDataAccess>();
             builder.RegisterType<UserData>().As<IUserData>();
             builder.RegisterType<ProductData>().As<IProductData>();
+            builder.RegisterType<SaleData>().As<ISaleData>();
             ServiceTuner = builder.Build();
 
             // Web API routes

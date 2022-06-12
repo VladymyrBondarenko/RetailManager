@@ -24,5 +24,12 @@ namespace RMDataManager.Library.Repositories
                 "spProduct_GetAll", connectionId);
             return res;
         }
+
+        public async Task<ProductModel> GetProductById(int id)
+        {
+            var res = await _db.LoadData<ProductModel, dynamic>(
+                "spProduct_GetById", connectionId, new { id = id });
+            return res.FirstOrDefault();
+        }
     }
 }

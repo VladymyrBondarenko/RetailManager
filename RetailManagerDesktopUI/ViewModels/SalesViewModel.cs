@@ -18,11 +18,13 @@ namespace RetailManagerDesktopUI.ViewModels
         private ProductModel _selectedProduct;
         private BindingList<CartItemModel> _cart = new BindingList<CartItemModel>();
         private readonly IProductEndpoint _productEndpoint;
+        private readonly ISaleEndpoint _saleEndpoint;
         private readonly IConfigHelper _configHelper;
 
-        public SalesViewModel(IProductEndpoint productEndpoint, IConfigHelper configHelper)
+        public SalesViewModel(IProductEndpoint productEndpoint, ISaleEndpoint saleEndpoint, IConfigHelper configHelper)
         {
             _productEndpoint = productEndpoint;
+            _saleEndpoint = saleEndpoint;
             _configHelper = configHelper;
         }
 
@@ -167,9 +169,11 @@ namespace RetailManagerDesktopUI.ViewModels
 
             SelectedProduct.QuantityInStock -= ItemQuantity;
             ItemQuantity = 1;
+
             NotifyOfPropertyChange(() => SubTotal);
             NotifyOfPropertyChange(() => Tax);
             NotifyOfPropertyChange(() => Total);
+            NotifyOfPropertyChange(() => CanCheckOut);
         }
 
         public bool CanRemoveFromCart
@@ -189,6 +193,7 @@ namespace RetailManagerDesktopUI.ViewModels
             NotifyOfPropertyChange(() => SubTotal);
             NotifyOfPropertyChange(() => Tax);
             NotifyOfPropertyChange(() => Total);
+            NotifyOfPropertyChange(() => CanCheckOut);
         }
 
         public bool CanCheckOut
@@ -197,15 +202,29 @@ namespace RetailManagerDesktopUI.ViewModels
             {
                 var output = false;
 
-                // Make sure there is sm in the cart
+                if (Cart.Any())
+                {
+                    output = true;
+                }
 
                 return output;
             }
         }
 
-        public void CheckOut()
+        public async Task CheckOut()
         {
+            var saleModel = new SaleModel();
 
+            foreach (var item in Cart)
+            {
+                saleModel.SaleDetailModels.Add(new SaleDetailModel
+                {
+                    ProductId = item.Product.Id,
+                    Quantity = item.QuantityInCart
+                });
+            }
+
+            await _saleEndpoint.PostSale(saleModel);
         }
     }
 }

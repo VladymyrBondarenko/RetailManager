@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace RetailManagerDesktopUI.Library.Helpers
+namespace RMDataManager
 {
-    public class ConfigHelper : IConfigHelper
+    public class ConfigHelper
     {
         // TODO: Move from config to the API
-        public decimal GetTaxRate()
+        public static decimal GetTaxRate()
         {
             string rateText = ConfigurationManager.AppSettings["taxRate"];
 

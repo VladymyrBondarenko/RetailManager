@@ -12,7 +12,7 @@ using static RMDataManager.Startup;
 
 namespace RMDataManager.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [RoutePrefix("api/Product")]
     public class ProductController : ApiController
     {

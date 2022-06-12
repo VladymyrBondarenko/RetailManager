@@ -6,6 +6,7 @@ namespace RMDataManager.Library.Repositories
 {
     public interface IProductData
     {
+        Task<ProductModel> GetProductById(int id);
         Task<List<ProductModel>> GetProducts();
     }
 }
