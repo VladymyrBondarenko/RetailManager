@@ -1,9 +1,11 @@
-﻿using Caliburn.Micro;
+﻿using AutoMapper;
+using Caliburn.Micro;
 using RetailManagerDesktopUI.Helpers;
 using RetailManagerDesktopUI.Library.Api;
 using RetailManagerDesktopUI.Library.Api.Endpoints;
 using RetailManagerDesktopUI.Library.Helpers;
 using RetailManagerDesktopUI.Library.Models;
+using RetailManagerDesktopUI.Models;
 using RetailManagerDesktopUI.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -31,6 +33,8 @@ namespace RetailManagerDesktopUI
 
         protected override void Configure()
         {
+            _container.Instance(configureMapper());
+
             _container.Instance(_container)
                 .PerRequest<IProductEndpoint, ProductEndpoint>()
                 .PerRequest<ISaleEndpoint, SaleEndpoint>();
@@ -66,6 +70,17 @@ namespace RetailManagerDesktopUI
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
             DisplayRootViewFor<ShellViewModel>();
+        }
+
+        private IMapper configureMapper()
+        {
+            var mapperConfig = new MapperConfiguration(config =>
+            {
+                config.CreateMap<ProductModel, ProductDisplayModel>();
+                config.CreateMap<CartItemModel, CartItemDisplayModel>();
+            });
+
+            return mapperConfig.CreateMapper();
         }
     }
 }
