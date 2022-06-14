@@ -19,5 +19,11 @@ namespace RetailManagerDesktopUI.Library.Models
         public string EmailAddress { get; set; }
 
         public DateTime CreatedDate { get; set; }
+
+        public void LogOffUser()
+        {
+            Id = Token = FirstName = LastName = EmailAddress = default;
+            CreatedDate = default;
+        }
     }
 }

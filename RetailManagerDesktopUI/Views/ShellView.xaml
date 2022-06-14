@@ -15,16 +15,11 @@
                 <ImageBrush/>
             </Menu.Background>
             <MenuItem Header="_File">
-                <MenuItem.Background>
-                    <ImageBrush/>
-                </MenuItem.Background>
-
+                <MenuItem x:Name="ExitApp" Header="E_xit" />
             </MenuItem>
-            <MenuItem Header="_Account">
-                <MenuItem.Background>
-                    <ImageBrush/>
-                </MenuItem.Background>
-                <MenuItem x:Name="LoginScreen" Header="_Login" />
+            <MenuItem Header="_Account"
+                    Visibility="{Binding IsUserLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}">
+                <MenuItem x:Name="LogOut" Header="_Log Out" />
             </MenuItem>
         </Menu>
         <Grid>

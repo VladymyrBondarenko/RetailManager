@@ -38,10 +38,10 @@ namespace RetailManagerDesktopUI.ViewModels
         {
             base.OnViewLoaded(view);
 
-            await LoadProduct();
+            await LoadProducts();
         }
 
-        public async Task LoadProduct()
+        public async Task LoadProducts()
         {
             var res = await _productEndpoint.GetAll();
 
@@ -260,6 +260,19 @@ namespace RetailManagerDesktopUI.ViewModels
             }
 
             await _saleEndpoint.PostSale(saleModel);
+
+            await ResetSalesViewModel();
+        }
+
+        private async Task ResetSalesViewModel()
+        {
+            Cart = new BindingList<CartItemDisplayModel>();
+            await LoadProducts();
+
+            NotifyOfPropertyChange(() => SubTotal);
+            NotifyOfPropertyChange(() => Tax);
+            NotifyOfPropertyChange(() => Total);
+            NotifyOfPropertyChange(() => CanCheckOut);
         }
     }
 }
