@@ -58,6 +58,11 @@ namespace RetailManagerDesktopUI.Library.Api
             }
         }
 
+        public void LogOffUser()
+        {
+            _httpClient.DefaultRequestHeaders.Clear();
+        }
+
         public async Task GetLoggedInUser(string token)
         {
             _httpClient.DefaultRequestHeaders.Clear();

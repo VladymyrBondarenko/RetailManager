@@ -20,7 +20,7 @@ namespace RetailManagerDesktopUI.Library.Models
 
         public DateTime CreatedDate { get; set; }
 
-        public void LogOffUser()
+        public void ResertUserModel()
         {
             Id = Token = FirstName = LastName = EmailAddress = default;
             CreatedDate = default;

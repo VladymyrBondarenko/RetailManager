@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using RetailManagerDesktopUI.EventModels;
+using RetailManagerDesktopUI.Library.Api;
 using RetailManagerDesktopUI.Library.Models;
 using System;
 using System.Collections.Generic;
@@ -15,12 +16,16 @@ namespace RetailManagerDesktopUI.ViewModels
         private readonly IEventAggregator _events;
         private readonly SalesViewModel _salesViewModel;
         private readonly ILoggedInUserModel _loggedInUserModel;
+        private readonly IRestServiceCaller _restServiceCaller;
 
-        public ShellViewModel(IEventAggregator events, SalesViewModel salesViewModel, ILoggedInUserModel loggedInUserModel)
+        public ShellViewModel(
+            IEventAggregator events, SalesViewModel salesViewModel, 
+            ILoggedInUserModel loggedInUserModel, IRestServiceCaller restServiceCaller)
         {
             _events = events;
             _salesViewModel = salesViewModel;
             _loggedInUserModel = loggedInUserModel;
+            _restServiceCaller = restServiceCaller;
             _events.SubscribeOnPublishedThread(this);
 
             ActivateItemAsync(IoC.Get<LoginViewModel>());
@@ -40,7 +45,9 @@ namespace RetailManagerDesktopUI.ViewModels
 
         public async Task LogOutAsync()
         {
-            _loggedInUserModel.LogOffUser();
+            _loggedInUserModel.ResertUserModel();
+            _restServiceCaller.LogOffUser();
+
             await ActivateItemAsync(IoC.Get<LoginViewModel>());
 
             NotifyOfPropertyChange(() => IsUserLoggedIn);
