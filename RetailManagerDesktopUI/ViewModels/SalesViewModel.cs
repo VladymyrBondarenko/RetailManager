@@ -83,6 +83,20 @@ namespace RetailManagerDesktopUI.ViewModels
             }
         }
 
+        private CartItemDisplayModel _selectedCartItem;
+
+        public CartItemDisplayModel SelectedCartItem
+        {
+            get { return _selectedCartItem; }
+            set 
+            { 
+                _selectedCartItem = value;
+                NotifyOfPropertyChange(() => SelectedCartItem);
+                NotifyOfPropertyChange(() => CanRemoveFromCart);
+            }
+        }
+
+
         public string SubTotal
         {
             get 
@@ -136,6 +150,7 @@ namespace RetailManagerDesktopUI.ViewModels
                 _itemQuantity = value;
                 NotifyOfPropertyChange(() => ItemQuantity);
                 NotifyOfPropertyChange(() => CanAddToCart);
+                NotifyOfPropertyChange(() => CanRemoveFromCart);
             }
         }
 
@@ -177,6 +192,7 @@ namespace RetailManagerDesktopUI.ViewModels
             NotifyOfPropertyChange(() => SubTotal);
             NotifyOfPropertyChange(() => Tax);
             NotifyOfPropertyChange(() => Total);
+            NotifyOfPropertyChange(() => CanRemoveFromCart);
             NotifyOfPropertyChange(() => CanCheckOut);
         }
 
@@ -186,7 +202,10 @@ namespace RetailManagerDesktopUI.ViewModels
             {
                 var output = false;
 
-                // Make sure sm is selected
+                if (SelectedCartItem?.QuantityInCart >= ItemQuantity)
+                {
+                    output = true;
+                }
 
                 return output;
             }
@@ -194,9 +213,21 @@ namespace RetailManagerDesktopUI.ViewModels
 
         public void RemoveFromCart()
         {
+            SelectedCartItem.Product.QuantityInStock += ItemQuantity;
+
+            if (SelectedCartItem.QuantityInCart > ItemQuantity)
+            {
+                SelectedCartItem.QuantityInCart -= ItemQuantity;
+            }
+            else
+            {
+                Cart.Remove(SelectedCartItem);
+            }
+
             NotifyOfPropertyChange(() => SubTotal);
             NotifyOfPropertyChange(() => Tax);
             NotifyOfPropertyChange(() => Total);
+            NotifyOfPropertyChange(() => CanAddToCart);
             NotifyOfPropertyChange(() => CanCheckOut);
         }
 
