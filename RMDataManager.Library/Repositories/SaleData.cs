@@ -59,19 +59,37 @@ namespace RMDataManager.Library.Repositories
             };
             sale.Total = sale.SubTotal + sale.Tax;
 
-            await _db.SaveData("dbo.spSale_Insert", connectionId, sale);
-
-            var res = await _db.LoadData<int, dynamic>(
-                "spSale_Lookup", 
-                connectionId, 
-                new { sale.CashierId, sale.SaleDate });
-            var saleId = res.FirstOrDefault();
-
-            foreach (var detail in details)
+            try
             {
-                detail.SaleId = saleId;
+                using (var transactionDataAccess = _db.StartTransaction(connectionId))
+                {
+                    try
+                    {
+                        await transactionDataAccess.SaveDataInTransaction("dbo.spSale_Insert", sale);
 
-                await _db.SaveData("dbo.spSaleDetail_Insert", connectionId, detail);
+                        var res = await transactionDataAccess.LoadDataInTransaction<int, dynamic>(
+                            "spSale_Lookup",
+                            new { sale.CashierId, sale.SaleDate });
+                        var saleId = res.FirstOrDefault();
+
+                        foreach (var detail in details)
+                        {
+                            detail.SaleId = saleId;
+
+                            await transactionDataAccess.SaveDataInTransaction("dbo.spSaleDetail_Insert", detail);
+                        }
+
+                        transactionDataAccess.CommitTransaction();
+                    }
+                    catch
+                    {
+                        transactionDataAccess.RollbackTransaction();
+                        throw;
+                    }
+                }
+            }
+            catch
+            {
             }
         }
     }

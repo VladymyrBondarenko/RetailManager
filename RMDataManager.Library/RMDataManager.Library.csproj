@@ -47,7 +47,9 @@
   <ItemGroup>
     <Compile Include="ConfigHelper.cs" />
     <Compile Include="Internal\DataAccess\ISqlDataAccess.cs" />
+    <Compile Include="Internal\DataAccess\ISqlDataTransactionAccess.cs" />
     <Compile Include="Internal\DataAccess\SqlDataAccess.cs" />
+    <Compile Include="Internal\DataAccess\SqlDataTransactionAccess.cs" />
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\SaleDetailModel.cs" />
     <Compile Include="Models\SaleDetailTransientModel.cs" />

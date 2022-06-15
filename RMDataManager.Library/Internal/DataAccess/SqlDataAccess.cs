@@ -12,6 +12,9 @@ namespace RMDataManager.Library.Internal.DataAccess
 {
     public class SqlDataAccess : ISqlDataAccess
     {
+        private IDbConnection _connection;
+        private IDbTransaction _transaction;
+
         public string GetConnectionString(string name)
         {
             return ConfigurationManager.ConnectionStrings[name]?.ConnectionString;
@@ -34,6 +37,14 @@ namespace RMDataManager.Library.Internal.DataAccess
             {
                 await connection.ExecuteAsync(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
+        }
+
+        public ISqlDataTransactionAccess StartTransaction(string connectionStringName)
+        {
+            var transaction = new SqlDataTransactionAccess();
+            transaction.StartTransaction(connectionStringName);
+
+            return transaction;
         }
     }
 }
