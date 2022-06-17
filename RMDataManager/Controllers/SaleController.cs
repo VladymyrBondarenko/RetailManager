@@ -23,6 +23,14 @@ namespace RMDataManager.Controllers
             _saleData = ServiceTuner.Resolve<ISaleData>();
         }
 
+        [HttpGet]
+        [Route("GetSalesReport")]
+        public async Task<List<SaleReportModel>> GetSalesReport()
+        {
+            var res = await _saleData.GetSaleReportModels();
+            return res.ToList();
+        }
+
         [HttpPost()]
         public async Task PostAsync(SaleTransientModel saleModel)
         {

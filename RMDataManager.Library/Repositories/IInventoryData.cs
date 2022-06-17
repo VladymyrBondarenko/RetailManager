@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace RMDataManager.Library.Repositories
 {
-    public interface ISaleData
+    public interface IInventoryData
     {
-        Task<List<SaleReportModel>> GetSaleReportModels();
-        Task SaveSale(SaleTransientModel saleModel, string cashierId);
+        Task<List<InventoryModel>> GetInventory();
+        Task SaveInventoryRecord(InventoryModel inventoryModel);
     }
 }

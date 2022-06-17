@@ -2,13 +2,13 @@
 using RMDataManager.Library.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static RMDataManager.Library.Internal.Settings.DbConfiguration;
 
 namespace RMDataManager.Library.Repositories
 {
     public class UserData : IUserData
     {
         private readonly ISqlDataAccess _db;
-        private static readonly string connectionId = "RetailManagerDataConnection";
 
         public UserData(ISqlDataAccess db)
         {
@@ -19,7 +19,7 @@ namespace RMDataManager.Library.Repositories
         {
             return await _db.LoadData<UserModel, dynamic>(
                 "dbo.spUserLookup",
-                connectionId, new { id = id });
+                RetailManagerDataConnectionId, new { id = id });
         }
     }
 }

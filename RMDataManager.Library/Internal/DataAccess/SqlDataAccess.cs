@@ -12,9 +12,6 @@ namespace RMDataManager.Library.Internal.DataAccess
 {
     public class SqlDataAccess : ISqlDataAccess
     {
-        private IDbConnection _connection;
-        private IDbTransaction _transaction;
-
         public string GetConnectionString(string name)
         {
             return ConfigurationManager.ConnectionStrings[name]?.ConnectionString;

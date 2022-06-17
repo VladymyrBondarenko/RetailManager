@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static RMDataManager.Library.Internal.Settings.DbConfiguration;
 
 namespace RMDataManager.Library.Repositories
 {
@@ -13,7 +14,6 @@ namespace RMDataManager.Library.Repositories
     {
         private readonly ISqlDataAccess _db;
         private readonly IProductData _productData;
-        private static readonly string connectionId = "RetailManagerDataConnection";
 
         public SaleData(ISqlDataAccess db, IProductData productData)
         {
@@ -61,7 +61,7 @@ namespace RMDataManager.Library.Repositories
 
             try
             {
-                using (var transactionDataAccess = _db.StartTransaction(connectionId))
+                using (var transactionDataAccess = _db.StartTransaction(RetailManagerDataConnectionId))
                 {
                     try
                     {
@@ -91,6 +91,12 @@ namespace RMDataManager.Library.Repositories
             catch
             {
             }
+        }
+
+        public async Task<List<SaleReportModel>> GetSaleReportModels()
+        {
+            var res =  await _db.LoadData<SaleReportModel, dynamic>("dbo.spSale_SaleReport", RetailManagerDataConnectionId);
+            return res.ToList();
         }
     }
 }
