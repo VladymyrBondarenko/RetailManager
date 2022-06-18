@@ -23,6 +23,7 @@ namespace RMDataManager.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Manger,Admin")]
         public async Task<List<InventoryModel>> Get()
         {
             var res = await _inventoryData.GetInventory();
@@ -30,6 +31,7 @@ namespace RMDataManager.Controllers
         }
 
         [HttpPost()]
+        [Authorize(Roles = "Admin")]
         public async Task Post(InventoryModel inventoryModel)
         {
             await _inventoryData.SaveInventoryRecord(inventoryModel);

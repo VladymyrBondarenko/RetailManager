@@ -25,6 +25,7 @@ namespace RMDataManager.Controllers
 
         [HttpGet]
         [Route("GetSalesReport")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<List<SaleReportModel>> GetSalesReport()
         {
             var res = await _saleData.GetSaleReportModels();
@@ -32,6 +33,7 @@ namespace RMDataManager.Controllers
         }
 
         [HttpPost()]
+        [Authorize(Roles = "Cashier")]
         public async Task PostAsync(SaleTransientModel saleModel)
         {
             await _saleData.SaveSale(saleModel, RequestContext.Principal.Identity.GetUserId());
