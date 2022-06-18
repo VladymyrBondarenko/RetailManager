@@ -68,8 +68,10 @@
   <ItemGroup>
     <Compile Include="Api\Endpoints\IProductEndpoint.cs" />
     <Compile Include="Api\Endpoints\ISaleEndpoint.cs" />
+    <Compile Include="Api\Endpoints\IUserEndpoint.cs" />
     <Compile Include="Api\Endpoints\ProductEndpoint.cs" />
     <Compile Include="Api\Endpoints\SaleEndpoint.cs" />
+    <Compile Include="Api\Endpoints\UserEndpoint.cs" />
     <Compile Include="Api\RestServiceCaller.cs" />
     <Compile Include="Api\IRestServiceCaller.cs" />
     <Compile Include="Helpers\ConfigHelper.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\SaleModel.cs" />
     <Compile Include="Models\SaleModelDetails.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

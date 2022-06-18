@@ -53,6 +53,11 @@ namespace RetailManagerDesktopUI.ViewModels
             NotifyOfPropertyChange(() => IsUserLoggedIn);
         }
 
+        public async Task UserManagement()
+        {
+            await ActivateItemAsync(IoC.Get<UserDisplayViewModel>());
+        }
+
         public bool IsUserLoggedIn
         {
             get
