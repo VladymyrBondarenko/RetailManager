@@ -3,10 +3,8 @@ using RetailManagerDesktopUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RetailManagerDesktopUI.Library.Api
@@ -29,8 +27,10 @@ namespace RetailManagerDesktopUI.Library.Api
 
         private void initilizeClient()
         {
+            var api = ConfigurationManager.AppSettings["api"];
+
             _httpClient = new HttpClient();
-            _httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["api"]);
+            _httpClient.BaseAddress = new Uri(api);
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
