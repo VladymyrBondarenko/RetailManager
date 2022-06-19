@@ -52,13 +52,55 @@ namespace RMDataManager.Controllers
                         Id = u.Id,
                         EmailAddress = u.Email,
                         UserRoles = u.Roles.Select(r =>
-                            new KeyValuePair<string, string>(
-                                r.RoleId, 
-                                roles.FirstOrDefault(role => role.Id == r.RoleId)?.Name)
+                           new 
+                           {
+                               Key = r.RoleId,
+                               Value = roles.FirstOrDefault(role => role.Id == r.RoleId)?.Name
+                           }
                         ).ToDictionary(x => x.Key, x => x.Value)
                     }).ToList();
 
                 return appUserModels;
+            }
+        }
+
+        [HttpGet]
+        [Route("Admin/GetAllRoles")]
+        [Authorize(Roles = "Admin")]
+        public Dictionary<string, string> GetAllRoles()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var roles = context.Roles.ToDictionary(x => x.Id, x => x.Name);
+                return roles;
+            }
+        }
+
+        [HttpPost]
+        [Route("Admin/AddToRole")]
+        [Authorize(Roles = "Admin")]
+        public async Task AddUserToRole(UserRolePairModel userRolePairModel)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var userStore = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+
+                await userManager.AddToRoleAsync(userRolePairModel.UserId, userRolePairModel.RoleName);
+            }
+        }
+
+        [HttpPost]
+        [Route("Admin/RemoveFromRole")]
+        [Authorize(Roles = "Admin")]
+        public async Task RemoveRoleFromUser(UserRolePairModel userRolePairModel)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var userStore = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+
+                await userManager.RemoveFromRoleAsync(userRolePairModel.UserId, userRolePairModel.RoleName);
             }
         }
     }

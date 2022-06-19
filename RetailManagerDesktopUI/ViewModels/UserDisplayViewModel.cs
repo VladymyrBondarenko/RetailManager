@@ -27,6 +27,15 @@ namespace RetailManagerDesktopUI.ViewModels
             _userEndpoint = userEndpoint;
         }
 
+        private Dictionary<string, string> _roles;
+
+        public Dictionary<string, string> Roles
+        {
+            get { return _roles; }
+            set { _roles = value; }
+        }
+
+
         private BindingList<UserModel> _users;
 
         public BindingList<UserModel> Users
@@ -39,6 +48,82 @@ namespace RetailManagerDesktopUI.ViewModels
             }
         }
 
+        private UserModel _selectedUser;
+
+        public UserModel SelectedUser
+        {
+            get { return _selectedUser; }
+            set 
+            { 
+                _selectedUser = value;
+                SelectedUserName = value.EmailAddress;
+                UserRoles = new BindingList<string>(
+                    value.UserRoles.Select(x => x.Value).ToList());
+                LoadAvailableRoles();
+                NotifyOfPropertyChange(() => SelectedUser);
+            }
+        }
+
+        private string _selectedAvailableRole;
+
+        public string SelectedAvailableRole
+        {
+            get { return _selectedAvailableRole; }
+            set 
+            { 
+                _selectedAvailableRole = value;
+                NotifyOfPropertyChange(() => SelectedAvailableRole);
+            }
+        }
+
+        private string _selectedUserRole;
+
+        public string SelectedUserRole
+        {
+            get { return _selectedUserRole; }
+            set 
+            { 
+                _selectedUserRole = value;
+                NotifyOfPropertyChange(() => SelectedUserRole);
+            }
+        }
+
+        private string _selectedUserName;
+
+        public string SelectedUserName
+        {
+            get { return _selectedUserName; }
+            set 
+            { 
+                _selectedUserName = value;
+                NotifyOfPropertyChange(() => SelectedUserName);
+            }
+        }
+
+        private BindingList<string> _userRoles = new BindingList<string>();
+
+        public BindingList<string> UserRoles
+        {
+            get { return _userRoles; }
+            set 
+            { 
+                _userRoles = value;
+                NotifyOfPropertyChange(() => UserRoles);
+            }
+        }
+
+        private BindingList<string> _availableRoles = new BindingList<string>();
+
+        public BindingList<string> AvailableRoles
+        {
+            get { return _availableRoles; }
+            set
+            {
+                _availableRoles = value;
+                NotifyOfPropertyChange(() => AvailableRoles);
+            }
+        }
+
         protected override async void OnViewLoaded(object view)
         {
             base.OnViewLoaded(view);
@@ -46,6 +131,7 @@ namespace RetailManagerDesktopUI.ViewModels
             try
             {
                 await LoadUsers();
+                await LoadRoles();
             }
             catch (Exception ex)
             {
@@ -74,6 +160,44 @@ namespace RetailManagerDesktopUI.ViewModels
         {
             var res = await _userEndpoint.GetAll();
             Users = new BindingList<UserModel>(res.ToList());
+        }
+
+        public void LoadAvailableRoles()
+        {
+            foreach (var role in
+                Roles.Where(x => !UserRoles.Contains(x.Value)))
+            {
+                AvailableRoles.Add(role.Value);
+            }
+        }
+
+        public async Task LoadRoles()
+        {
+            Roles = await _userEndpoint.GetAllRoles();
+        }
+
+        public async void AddSelectedRole()
+        {
+            await _userEndpoint.AddToRole(SelectedUser.Id, SelectedAvailableRole);
+
+            UserRoles.Add(SelectedAvailableRole);
+            AvailableRoles.Remove(SelectedAvailableRole);
+
+            // TODO: Update roles in the selected user roles
+
+            NotifyOfPropertyChange(() => SelectedUser);
+        }
+
+        public async void RemoveSelectedRole()
+        {
+            await _userEndpoint.RemoveFromRole(SelectedUser.Id, SelectedUserRole);
+
+            AvailableRoles.Add(SelectedUserRole);
+            UserRoles.Remove(SelectedUserRole);
+
+            // TODO: Update roles in the selected user roles
+
+            NotifyOfPropertyChange(() => SelectedUser);
         }
     }
 }
