@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -12,9 +13,17 @@ namespace RMDataManager.Library.Internal.DataAccess
 {
     public class SqlDataAccess : ISqlDataAccess
     {
+        private readonly IConfiguration _configuration;
+
+        public SqlDataAccess(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public string GetConnectionString(string name)
         {
-            return ConfigurationManager.ConnectionStrings[name]?.ConnectionString;
+            var res = _configuration.GetConnectionString(name);
+            return res;
         }
 
         public async Task<List<T>> LoadData<T, U>(string storedProcedure, string connectionStringName, U parameters = default)
@@ -38,7 +47,7 @@ namespace RMDataManager.Library.Internal.DataAccess
 
         public ISqlDataTransactionAccess StartTransaction(string connectionStringName)
         {
-            var transaction = new SqlDataTransactionAccess();
+            var transaction = new SqlDataTransactionAccess(_configuration);
             transaction.StartTransaction(connectionStringName);
 
             return transaction;

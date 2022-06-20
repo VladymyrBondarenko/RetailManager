@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,10 +17,17 @@ namespace RMDataManager.Library.Internal.DataAccess
         private IDbTransaction _transaction;
         private readonly ISqlDataAccess _db;
         private bool _isClosed = false;
+        private IConfiguration _configuration;
+
+        public SqlDataTransactionAccess(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         public string GetConnectionString(string name)
         {
-            return ConfigurationManager.ConnectionStrings[name]?.ConnectionString;
+            var res = _configuration.GetConnectionString(name);
+            return res;
         }
 
         public async Task SaveDataInTransaction<T>(string storedProcedure, T parameters = default)
