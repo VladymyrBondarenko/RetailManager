@@ -9,15 +9,17 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "RetailManagerData", "Retail
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetailManagerDesktopUI", "RetailManagerDesktopUI\RetailManagerDesktopUI.csproj", "{F591E731-819F-4C4A-8C98-7357797C0C77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMDataManager.Library", "RMDataManager.Library\RMDataManager.Library.csproj", "{82917A24-1DEA-4FFF-A3C3-B2F4B42DD67C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RMDataManager.Library", "RMDataManager.Library\RMDataManager.Library.csproj", "{82917A24-1DEA-4FFF-A3C3-B2F4B42DD67C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetailManagerDesktopUI.Library", "RetailManagerDesktopUI.Library\RetailManagerDesktopUI.Library.csproj", "{A8263E52-0A8C-446F-A59D-4771C1CE0C74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetailManagerDesktopUI.Library", "RetailManagerDesktopUI.Library\RetailManagerDesktopUI.Library.csproj", "{A8263E52-0A8C-446F-A59D-4771C1CE0C74}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{F9780832-B31F-4F50-B8A3-61CE95F2054D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{D06C1AB3-21DE-473E-B601-079D2000C4B4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{819118B6-4A85-4FE1-B0B2-FAA9064ACB51}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetailManagerAPI", "RetailManagerAPI\RetailManagerAPI.csproj", "{0090139F-7F50-4A98-8AD3-20F5881644A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{A8263E52-0A8C-446F-A59D-4771C1CE0C74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8263E52-0A8C-446F-A59D-4771C1CE0C74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8263E52-0A8C-446F-A59D-4771C1CE0C74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0090139F-7F50-4A98-8AD3-20F5881644A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0090139F-7F50-4A98-8AD3-20F5881644A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0090139F-7F50-4A98-8AD3-20F5881644A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0090139F-7F50-4A98-8AD3-20F5881644A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +63,7 @@ Global
 		{F591E731-819F-4C4A-8C98-7357797C0C77} = {819118B6-4A85-4FE1-B0B2-FAA9064ACB51}
 		{82917A24-1DEA-4FFF-A3C3-B2F4B42DD67C} = {D06C1AB3-21DE-473E-B601-079D2000C4B4}
 		{A8263E52-0A8C-446F-A59D-4771C1CE0C74} = {819118B6-4A85-4FE1-B0B2-FAA9064ACB51}
+		{0090139F-7F50-4A98-8AD3-20F5881644A8} = {D06C1AB3-21DE-473E-B601-079D2000C4B4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {12C91D6E-2DF6-4DDF-B646-0EC20136E225}
