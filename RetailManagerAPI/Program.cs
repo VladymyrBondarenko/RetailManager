@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using RetailManagerAPI.Data;
 using RetailManagerAPI.Helpers;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +18,31 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+builder.Services.AddAuthentication(option =>
+    {
+        option.DefaultAuthenticateScheme = "JwtBearer";
+        option.DefaultChallengeScheme = "JwtBearer";
+    }
+).AddJwtBearer("JwtBearer", options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateLifetime = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ASDSADSASDFASDFASDF21341234123412341234WERQWERQWERQWERQWEFDSAFS1234")),
+        ValidateIssuerSigningKey = true,
+        ClockSkew = TimeSpan.FromMinutes(5)
+    };
+});
+builder.Services.AddSwaggerGen(setup =>
+{
+    setup.SwaggerDoc("v1", new OpenApiInfo 
+    { 
+        Title = "Retail Manager API",
+        Version = "v1"
+    });
+});
 
 builder.ConfigureServices();
 
@@ -39,6 +67,11 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSwagger();
+app.UseSwaggerUI(x => 
+    x.SwaggerEndpoint("/swagger/v1/swagger.json", "Retail Manager API v1")
+);
 
 app.MapControllerRoute(
     name: "default",
