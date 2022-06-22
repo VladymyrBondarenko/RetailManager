@@ -4,11 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RetailManagerDesktopUI.Views"
-             mc:Ignorable="d" Background="White" FontSize="24"
+             mc:Ignorable="d" FontSize="24"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/Views/SuggestionPageBackground.jpg"/>
+            <ImageBrush/>
         </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -28,7 +28,7 @@
                    HorizontalAlignment="Center" FontSize="64" FontFamily="Segoe UI Light">
             Login Form
         </TextBlock>
-        
+
         <!-- Error message row -->
         <TextBlock x:Name="ErrorMessage" 
                    Visibility="{Binding IsErrorVisible, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}"
@@ -39,13 +39,15 @@
         <TextBlock Grid.Row="2" Grid.Column="1" FontFamily="Segoe UI Light" Margin="0 0 0 10">
             Username:
         </TextBlock>
-        <TextBox x:Name="UserName" Grid.Row="2" Grid.Column="2" MinWidth="350" Margin="0 0 5 10" />
+        <TextBox x:Name="UserName" Grid.Row="2" Grid.Column="2" MinWidth="350" Margin="0 0 5 10" >
+        </TextBox>
 
         <!-- Password row -->
         <TextBlock Grid.Row="3" Grid.Column="1" FontFamily="Segoe UI Light" Margin="0 0 5 10">
             Password:
         </TextBlock>
-        <PasswordBox x:Name="Password" Grid.Row="3" Grid.Column="2" MinWidth="350" Margin="0 0 5 10" />
+        <PasswordBox x:Name="Password" Grid.Row="3" Grid.Column="2" MinWidth="350" Margin="0 0 5 10" >
+        </PasswordBox>
 
         <!-- Login row -->
         <Button Grid.Row="4" Grid.Column="1" Padding="20 5"

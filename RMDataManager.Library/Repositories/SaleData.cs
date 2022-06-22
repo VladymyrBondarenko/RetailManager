@@ -1,4 +1,5 @@
-﻿using RMDataManager.Library.Internal.DataAccess;
+﻿using Microsoft.Extensions.Configuration;
+using RMDataManager.Library.Internal.DataAccess;
 using RMDataManager.Library.Models;
 using System;
 using System.Collections.Generic;
@@ -14,18 +15,26 @@ namespace RMDataManager.Library.Repositories
     {
         private readonly ISqlDataAccess _db;
         private readonly IProductData _productData;
+        private readonly IConfiguration _configuration;
 
-        public SaleData(ISqlDataAccess db, IProductData productData)
+        public SaleData(ISqlDataAccess db, IProductData productData, IConfiguration configuration)
         {
             _db = db;
             _productData = productData;
+            _configuration = configuration;
         }
 
         public async Task SaveSale(SaleTransientModel saleModel, string cashierId)
         {
-            var details = new List<SaleDetailModel>();
-            var tax = ConfigHelper.GetTaxRate()/100;
+            var taxStr = string.Join(",", _configuration["taxRate"]);
+            if(!decimal.TryParse(taxStr, out decimal tax) || tax == 0)
+            {
+                throw new Exception("The tax rate is not set up properly");
+            }
 
+            var details = new List<SaleDetailModel>();
+            tax /= 100;
+            
             foreach (var saleDetail in saleModel.SaleDetailModels)
             {
                 var detail = new SaleDetailModel

@@ -5,10 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RetailManagerDesktopUI.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="White" FontSize="24">
+             d:DesignHeight="450" d:DesignWidth="800" FontSize="24">
+    <UserControl.Background>
+        <ImageBrush/>
+    </UserControl.Background>
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/Views/SuggestionPageBackground.jpg"/>
+            <ImageBrush/>
         </Grid.Background>
 
         <Grid.RowDefinitions>
@@ -30,7 +33,7 @@
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        
+
         <!-- Header -->
         <TextBlock Text="Sales Page" FontSize="48" Grid.Row="0" Grid.Column="0" 
                    Grid.ColumnSpan="3" Height="auto" Margin="0 0 0 20">
@@ -40,9 +43,16 @@
         </TextBlock>
 
         <!-- Column 0 -->
-        <TextBlock Text="Items" Grid.Row="1" Grid.Column="0" />
+        <TextBlock Text="Items" Grid.Row="1" Grid.Column="0" >
+            <TextBlock.Background>
+                <ImageBrush/>
+            </TextBlock.Background>
+        </TextBlock>
         <ListBox x:Name="Products" Grid.Row="2" Grid.Column="0" 
                  MinHeight="200" MinWidth="150" SelectedItem="{Binding SelectedProduct}">
+            <ListBox.Background>
+                <ImageBrush/>
+            </ListBox.Background>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
@@ -65,16 +75,42 @@
         <!-- Column 1 -->
         <StackPanel Orientation="Vertical" Grid.Column="1" 
                     Grid.Row="2" Margin="20 0">
-            <TextBlock Text="Quantity" />
-            <TextBox x:Name="ItemQuantity" MinWidth="100" Margin="0 0 0 10"/>
-            <Button x:Name="AddToCart" Content="Add to Cart" Margin="0 0 0 30" Padding="5" />
-            <Button x:Name="RemoveFromCart" Content="Remove From Cart" Padding="5" />
+            <StackPanel.Background>
+                <ImageBrush/>
+            </StackPanel.Background>
+            <TextBlock Text="Quantity" >
+                <TextBlock.Background>
+                    <ImageBrush/>
+                </TextBlock.Background>
+            </TextBlock>
+            <TextBox x:Name="ItemQuantity" MinWidth="100" Margin="0 0 0 10">
+                <TextBox.Background>
+                    <ImageBrush/>
+                </TextBox.Background>
+            </TextBox>
+            <Button x:Name="AddToCart" Content="Add to Cart" Margin="0 0 0 30" Padding="5" >
+                <Button.Background>
+                    <ImageBrush/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="RemoveFromCart" Content="Remove From Cart" Padding="5" >
+                <Button.Background>
+                    <ImageBrush/>
+                </Button.Background>
+            </Button>
         </StackPanel>
 
         <!-- Column 2 -->
-        <TextBlock Text="Cart" Grid.Row="1" Grid.Column="2" />
+        <TextBlock Text="Cart" Grid.Row="1" Grid.Column="2" >
+            <TextBlock.Background>
+                <ImageBrush/>
+            </TextBlock.Background>
+        </TextBlock>
         <ListBox x:Name="Cart" Grid.Row="2" Grid.Column="2" 
                  MinHeight="200" MinWidth="150" SelectedItem="{Binding SelectedCartItem}">
+            <ListBox.Background>
+                <ImageBrush/>
+            </ListBox.Background>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding DisplayText}" />
@@ -82,20 +118,57 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-            <DockPanel Grid.Row="3" Grid.Column="2">
-            <TextBlock Text="Sub Total: " Margin="0 0 15 0" />
-            <TextBlock x:Name="SubTotal" Text="$0.00" TextAlignment="Right" />
+        <DockPanel Grid.Row="3" Grid.Column="2">
+            <DockPanel.Background>
+                <ImageBrush/>
+            </DockPanel.Background>
+            <TextBlock Text="Sub Total: " Margin="0 0 15 0" >
+                <TextBlock.Background>
+                    <ImageBrush/>
+                </TextBlock.Background>
+            </TextBlock>
+            <TextBlock x:Name="SubTotal" Text="$0.00" TextAlignment="Right" >
+                <TextBlock.Background>
+                    <ImageBrush/>
+                </TextBlock.Background>
+            </TextBlock>
         </DockPanel>
         <DockPanel Grid.Row="4" Grid.Column="2">
-            <TextBlock Text="Tax: " />
-            <TextBlock x:Name="Tax" Text="$0.00" TextAlignment="Right" />
+            <DockPanel.Background>
+                <ImageBrush/>
+            </DockPanel.Background>
+            <TextBlock Text="Tax: " >
+                <TextBlock.Background>
+                    <ImageBrush/>
+                </TextBlock.Background>
+            </TextBlock>
+            <TextBlock x:Name="Tax" Text="$0.00" TextAlignment="Right" >
+                <TextBlock.Background>
+                    <ImageBrush/>
+                </TextBlock.Background>
+            </TextBlock>
         </DockPanel>
         <DockPanel Grid.Row="5" Grid.Column="2">
-            <TextBlock Text="Total: " />
-            <TextBlock x:Name="Total" Text="$0.00" TextAlignment="Right" />
+            <DockPanel.Background>
+                <ImageBrush/>
+            </DockPanel.Background>
+            <TextBlock Text="Total: " >
+                <TextBlock.Background>
+                    <ImageBrush/>
+                </TextBlock.Background>
+            </TextBlock>
+            <TextBlock x:Name="Total" Text="$0.00" TextAlignment="Right" >
+                <TextBlock.Background>
+                    <ImageBrush/>
+                </TextBlock.Background>
+            </TextBlock>
         </DockPanel>
 
         <Button x:Name="CheckOut" Grid.Row="6" Grid.Column="2" Content="Check Out"
-                Margin="0 20 0 0" Padding="5" />
+                Margin="0 20 0 0" Padding="5" >
+            <Button.Background>
+                <ImageBrush/>
+            </Button.Background>
+        </Button>
     </Grid>
 </UserControl>
