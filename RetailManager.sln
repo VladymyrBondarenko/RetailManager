@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMDataManager", "RMDataManager\RMDataManager.csproj", "{88DEBED5-20F1-4533-AD2E-B2A1E41693C3}"
-EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "RetailManagerData", "RetailManagerData\RetailManagerData.sqlproj", "{A6747E70-FFE3-42D8-AC48-9FC25BEDF294}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetailManagerDesktopUI", "RetailManagerDesktopUI\RetailManagerDesktopUI.csproj", "{F591E731-819F-4C4A-8C98-7357797C0C77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetailManagerDesktopUI", "RetailManagerDesktopUI\RetailManagerDesktopUI.csproj", "{F591E731-819F-4C4A-8C98-7357797C0C77}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RMDataManager.Library", "RMDataManager.Library\RMDataManager.Library.csproj", "{82917A24-1DEA-4FFF-A3C3-B2F4B42DD67C}"
 EndProject
@@ -19,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{D06C1AB3-21D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{819118B6-4A85-4FE1-B0B2-FAA9064ACB51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetailManagerAPI", "RetailManagerAPI\RetailManagerAPI.csproj", "{0090139F-7F50-4A98-8AD3-20F5881644A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetailManagerAPI", "RetailManagerAPI\RetailManagerAPI.csproj", "{0090139F-7F50-4A98-8AD3-20F5881644A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,10 +25,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{88DEBED5-20F1-4533-AD2E-B2A1E41693C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{88DEBED5-20F1-4533-AD2E-B2A1E41693C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{88DEBED5-20F1-4533-AD2E-B2A1E41693C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{88DEBED5-20F1-4533-AD2E-B2A1E41693C3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A6747E70-FFE3-42D8-AC48-9FC25BEDF294}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A6747E70-FFE3-42D8-AC48-9FC25BEDF294}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6747E70-FFE3-42D8-AC48-9FC25BEDF294}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
@@ -58,7 +52,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{88DEBED5-20F1-4533-AD2E-B2A1E41693C3} = {D06C1AB3-21DE-473E-B601-079D2000C4B4}
 		{A6747E70-FFE3-42D8-AC48-9FC25BEDF294} = {F9780832-B31F-4F50-B8A3-61CE95F2054D}
 		{F591E731-819F-4C4A-8C98-7357797C0C77} = {819118B6-4A85-4FE1-B0B2-FAA9064ACB51}
 		{82917A24-1DEA-4FFF-A3C3-B2F4B42DD67C} = {D06C1AB3-21DE-473E-B601-079D2000C4B4}
