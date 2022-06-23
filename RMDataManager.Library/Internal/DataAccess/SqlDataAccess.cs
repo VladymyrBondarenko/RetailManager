@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,10 +15,12 @@ namespace RMDataManager.Library.Internal.DataAccess
     public class SqlDataAccess : ISqlDataAccess
     {
         private readonly IConfiguration _configuration;
+        private readonly ILogger<SqlDataAccess> _logger;
 
-        public SqlDataAccess(IConfiguration configuration)
+        public SqlDataAccess(IConfiguration configuration, ILogger<SqlDataAccess> logger)
         {
             _configuration = configuration;
+            _logger = logger;
         }
 
         public string GetConnectionString(string name)
@@ -47,7 +50,7 @@ namespace RMDataManager.Library.Internal.DataAccess
 
         public ISqlDataTransactionAccess StartTransaction(string connectionStringName)
         {
-            var transaction = new SqlDataTransactionAccess(_configuration);
+            var transaction = new SqlDataTransactionAccess(_configuration, _logger);
             transaction.StartTransaction(connectionStringName);
 
             return transaction;

@@ -1,4 +1,5 @@
-﻿using RetailManagerDesktopUI.Library.Models;
+﻿using Microsoft.Extensions.Logging;
+using RetailManagerDesktopUI.Library.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,12 @@ namespace RetailManagerDesktopUI.Library.Api.Endpoints
     public class SaleEndpoint : ISaleEndpoint
     {
         private readonly IRestServiceCaller _restServiceCaller;
+        private readonly ILogger<SaleEndpoint> _logger;
 
-        public SaleEndpoint(IRestServiceCaller restServiceCaller)
+        public SaleEndpoint(IRestServiceCaller restServiceCaller, ILogger<SaleEndpoint> logger)
         {
             _restServiceCaller = restServiceCaller;
+            _logger = logger;
         }
 
         public async Task PostSale(SaleModel saleModel)
@@ -23,7 +26,8 @@ namespace RetailManagerDesktopUI.Library.Api.Endpoints
             {
                 if (httpResponse.IsSuccessStatusCode)
                 {
-                    // TODO: Log successfull call
+                    _logger.LogInformation(
+                        "A sale posted successfully at {0}", DateTime.Now);
                 }
                 else
                 {

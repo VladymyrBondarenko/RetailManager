@@ -18,12 +18,15 @@ namespace RetailManagerAPI.Controllers
         private readonly IUserData _userData;
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly ILogger<UserController> _logger;
 
-        public UserController(IUserData userData, ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public UserController(IUserData userData, ApplicationDbContext context, 
+            UserManager<IdentityUser> userManager, ILogger<UserController> logger)
         {
             _userData = userData;
             _context = context;
             _userManager = userManager;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -71,8 +74,22 @@ namespace RetailManagerAPI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task AddUserToRole(UserRolePairModel userRolePairModel)
         {
+            var loggedInUser = (await _userData.GetUserById(
+                    User.FindFirstValue(ClaimTypes.NameIdentifier))).FirstOrDefault();
             var user = await _userManager.FindByIdAsync(userRolePairModel.UserId);
-            await _userManager.AddToRoleAsync(user, userRolePairModel.RoleName);
+
+            try
+            {
+                await _userManager.AddToRoleAsync(user, userRolePairModel.RoleName);
+
+                _logger.LogInformation("Admin {0} added user {1} to role {2}", 
+                    loggedInUser.Id, user.Id, userRolePairModel.RoleName);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Admin {0} tried to add user {1} to role {2}, but failed",
+                    loggedInUser.Id, user.Id, userRolePairModel.RoleName);
+            }
         }
 
         [HttpPost]
@@ -80,8 +97,22 @@ namespace RetailManagerAPI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task RemoveRoleFromUser(UserRolePairModel userRolePairModel)
         {
+            var loggedInUser = (await _userData.GetUserById(
+                  User.FindFirstValue(ClaimTypes.NameIdentifier))).FirstOrDefault();
             var user = await _userManager.FindByIdAsync(userRolePairModel.UserId);
-            await _userManager.RemoveFromRoleAsync(user, userRolePairModel.RoleName);
+
+            try
+            {
+                await _userManager.RemoveFromRoleAsync(user, userRolePairModel.RoleName);
+
+                _logger.LogInformation("Admin {0} removed user {1} from role {2}",
+                    loggedInUser.Id, user.Id, userRolePairModel.RoleName);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Admin {0} tried to remove user {1} from role {2}, but failed",
+                    loggedInUser.Id, user.Id, userRolePairModel.RoleName);
+            }
         }
     }
 }
