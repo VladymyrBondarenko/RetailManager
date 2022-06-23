@@ -12,11 +12,13 @@ namespace RetailManagerAPI.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IConfiguration _configuration;
 
-        public TokenController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public TokenController(ApplicationDbContext context, UserManager<IdentityUser> userManager, IConfiguration configuration)
         {
             _context = context;
             _userManager = userManager;
+            _configuration = configuration;
         }
 
         [Route("/token")]
@@ -68,7 +70,7 @@ namespace RetailManagerAPI.Controllers
                 (
                     new SigningCredentials
                     (
-                        new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ASDSADSASDFASDFASDF21341234123412341234WERQWERQWERQWERQWEFDSAFS1234")), 
+                        new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetValue<string>("Secrets:SecurityKey"))), 
                         SecurityAlgorithms.HmacSha256
                     )
                 ), 

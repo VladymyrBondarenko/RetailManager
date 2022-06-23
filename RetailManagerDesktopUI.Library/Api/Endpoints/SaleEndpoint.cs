@@ -12,24 +12,17 @@ namespace RetailManagerDesktopUI.Library.Api.Endpoints
     public class SaleEndpoint : ISaleEndpoint
     {
         private readonly IRestServiceCaller _restServiceCaller;
-        private readonly ILogger<SaleEndpoint> _logger;
 
-        public SaleEndpoint(IRestServiceCaller restServiceCaller, ILogger<SaleEndpoint> logger)
+        public SaleEndpoint(IRestServiceCaller restServiceCaller)
         {
             _restServiceCaller = restServiceCaller;
-            _logger = logger;
         }
 
         public async Task PostSale(SaleModel saleModel)
         {
             using (var httpResponse = await _restServiceCaller.HttpClient.PostAsJsonAsync("api/Sale", saleModel))
             {
-                if (httpResponse.IsSuccessStatusCode)
-                {
-                    _logger.LogInformation(
-                        "A sale posted successfully at {0}", DateTime.Now);
-                }
-                else
+                if (!httpResponse.IsSuccessStatusCode)
                 {
                     throw new Exception(httpResponse.ReasonPhrase);
                 }
