@@ -14,16 +14,13 @@ namespace RetailManagerDesktopUI.ViewModels
     public class ShellViewModel : Conductor<object>, IHandle<LogOnEvent>
     {
         private readonly IEventAggregator _events;
-        private readonly SalesViewModel _salesViewModel;
         private readonly ILoggedInUserModel _loggedInUserModel;
         private readonly IRestServiceCaller _restServiceCaller;
 
-        public ShellViewModel(
-            IEventAggregator events, SalesViewModel salesViewModel, 
-            ILoggedInUserModel loggedInUserModel, IRestServiceCaller restServiceCaller)
+        public ShellViewModel(IEventAggregator events, ILoggedInUserModel loggedInUserModel, 
+            IRestServiceCaller restServiceCaller)
         {
             _events = events;
-            _salesViewModel = salesViewModel;
             _loggedInUserModel = loggedInUserModel;
             _restServiceCaller = restServiceCaller;
             _events.SubscribeOnPublishedThread(this);
@@ -33,7 +30,7 @@ namespace RetailManagerDesktopUI.ViewModels
 
         public async Task HandleAsync(LogOnEvent message, CancellationToken cancellationToken)
         {
-            await ActivateItemAsync(_salesViewModel);
+            await ActivateItemAsync(IoC.Get<SalesViewModel>());
 
             NotifyOfPropertyChange(() => IsUserLoggedIn);
         }
